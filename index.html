@@ -18,17 +18,36 @@ body {
     padding: 40px 15px;
 }
 
+/* overlay */
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+#overlay button {
+    padding: 15px 25px;
+    border-radius: 15px;
+    border: none;
+    background: #93c5fd;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#main { display: none; }
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(30px);}
     to { opacity: 1; transform: translateY(0);}
 }
-
 @keyframes float {
     0% { transform: translateY(0);}
     50% { transform: translateY(-6px);}
     100% { transform: translateY(0);}
 }
-
 @keyframes floatUp {
     0% { transform: translateY(0) scale(1); opacity: 0.5; }
     100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
@@ -54,8 +73,6 @@ h1 {
 p {
     font-size: 1.05em;
     line-height: 1.75;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
     margin-bottom: 15px;
 }
 
@@ -67,24 +84,13 @@ p {
 
 button {
     padding: 10px 18px;
-    border: none;
     border-radius: 12px;
+    border: none;
     background: #93c5fd;
-    color: #1e3a8a;
-    font-size: 1em;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-button:hover {
-    background: #60a5fa;
-    transform: scale(1.05);
-}
-
-.hidden {
-    display: none;
-    animation: fadeIn 1s ease;
-}
+.hidden { display: none; }
 
 .heart {
     position: fixed;
@@ -94,15 +100,16 @@ button:hover {
     animation: floatUp linear forwards;
     pointer-events: none;
 }
-
-@media (max-width: 600px) {
-    h1 { font-size: 1.8em; }
-    .container { padding: 25px; }
-}
 </style>
 </head>
 
 <body>
+
+<div id="overlay">
+<button id="startBtn">Tap to open 💗</button>
+</div>
+
+<div id="main">
 
 <div class="container">
 
@@ -122,7 +129,7 @@ And I know ki things don’t always go smoothly for us, well, it’s something n
 
 God, I hate Discord, but how can I hate it when it made me meet you? So, thank you Discord lol. Truly, Laveena, thank you so much for existing. I hope you know that I am always proud of you, you deserve to be loved, you deserve every happiness the world has to offer. May this year bring endless joy, success, and peace into your life, and mine as well ;p. May Shiv ji bless you.<br><br>
 
-Anyway, I love you very much, Mimi.<br><br>
+Anyways, I love you very much, Mimi.<br><br>
 
 I know this birthday surprise is not much, but I am attaching below what YOUR name truly means to ME. I hope you’ll like it!
 </p>
@@ -142,9 +149,11 @@ I know this birthday surprise is not much, but I am attaching below what YOUR na
 
 <p><b>E – Escape.</b> You are someone whom I always run to after God if things get too much for me, if the world around me feels too heavy. In my darkness, you act as light, you make me feel safer when I am with you. And after talking to you, I somehow always get the energy to move on with life, and that truly means a lot, like really a lot.</p>
 
-<p><b>N – Never giving up.</b> One thing I have developed more than I ever had with you is not giving up on people who matter to me, even if things seem difficult or impossible with them, no matter how terrible the conditions are. It’s always worth it to not give up on them until things are right with them. For me, that’s you. Earlier, if someone was sad from me, I would try to make things right with them for a bit, but I used to eventually give up and go on with life, thinking there’s nothing I can do. But now things have changed, it’s you who makes me want to never give up when we are sad from each other, when things are difficult.</p>
+<p><b>N – Never giving up.</b> One thing I have developed more than I ever had with you is not giving up on people who matter to me, even if things seem difficult or impossible with them, no matter how terrible the conditions are. It’s always worth it to not give up on them until things are right with them. For me, that’s you.</p>
 
-<p><b>A – Alan.</b> Yup, last but not the least, the letter ‘A’ in your name, which is also my initial. You made me, me. Being with you made me realize that I don’t have to change everything about myself to be appreciated by the people around me. People can like me for who I am, and I’m not responsible for everyone and that’s something I’ve learned because of you. It also means much more than I could ever fit into just a small fragment of what you mean to me. Also, my initial coming at the end of your name means that no matter what, I will always have your back and support you in every situation.</p>
+<p><b>A – Alan.</b> Yup, last but not the least, the letter ‘A’ in your name, which is also my initial. You made me, me. Being with you made me realize that I don’t have to change everything about myself to be appreciated by the people around me.</p>
+
+</div>
 
 </div>
 
@@ -164,23 +173,17 @@ function typeEffect() {
         setTimeout(typeEffect, 50);
     }
 }
-typeEffect();
+
+document.getElementById("startBtn").addEventListener("click", () => {
+    document.getElementById("music").play();
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("main").style.display = "block";
+    typeEffect();
+});
 
 function showMore() {
     document.getElementById("more").style.display = "block";
 }
-
-function startMusic() {
-    const music = document.getElementById("music");
-    music.play().catch(() => {});
-    document.removeEventListener("click", startMusic);
-    document.removeEventListener("scroll", startMusic);
-    document.removeEventListener("touchstart", startMusic);
-}
-
-document.addEventListener("click", startMusic);
-document.addEventListener("scroll", startMusic);
-document.addEventListener("touchstart", startMusic);
 
 function createHeartsBurst() {
     for (let i = 0; i < 5; i++) {
@@ -196,15 +199,6 @@ function createHeartsBurst() {
 }
 
 document.addEventListener("click", createHeartsBurst);
-
-let lastScrollTime = 0;
-window.addEventListener("scroll", () => {
-    const now = Date.now();
-    if (now - lastScrollTime > 1500) {
-        createHeartsBurst();
-        lastScrollTime = now;
-    }
-});
 </script>
 
 </body>
